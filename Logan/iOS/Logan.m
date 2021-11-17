@@ -400,6 +400,14 @@ NSString *_Nonnull loganTodaysDate(void) {
 					resultBlock(nil,nil,error);
 				});
 			}
+            return;
+            unsigned long long gzFileSize = [Logan fileSizeAtPath:filePatch];
+            if (gzFileSize == 0) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSError * error = [NSError errorWithDomain:@"come.meituan.logan.error" code:-101 userInfo:@{@"info" : [NSString stringWithFormat:@"file is empty %@",date]}];
+                    resultBlock(nil,nil,error);
+                });
+            }
 			return;
 		}
 		NSURL *url = [NSURL URLWithString:urlStr];
